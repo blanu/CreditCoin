@@ -13,24 +13,56 @@ monocle.init('tornado')
 from monocle.stack import eventloop
 from monocle.stack.network import add_service, Client, ConnectionLost
 
-from coins import Coins
-from keys import loadKeys
+from coins import Coin, Coins
+from keys import loadKeys, loadPublic, loadPrivate
 from util import encode, decode
-
-to=sys.argv[1]
-
-cs=Coins()
-cs.load('coins.dat')
 
 (pub, priv) = loadKeys()
 
-coin=cs.get()
-msg=['send', coin.save(), encode(pub.save_pkcs1_der()), to]
-msgs=json.dumps(msg)
-sig=rsa.sign(msgs, priv)
+@_o
+def send(coin, to):
+  msg=['send', coin.save(), encode(pub.save_pkcs1_der()), to]
+  msgs=json.dumps(msg)
+  sig=rsa.sign(msgs, priv)
 
-smsg=[msg, sig]
+  smsg=json.dumps([msg, sig])
 
-print(smsg)
+  client=Client()
+  yield client.connect('localhost', 7050)
+  yield client.write(smsg+"\n")
 
-#cs.save('coins.dat')
+  s=yield client.read_until("\n")
+  smsg=json.loads(s)
+  msg=smsg[0]
+  cmd, scoin, frm, to=msg
+  coin=Coin()
+  coin.load(scoin)
+  frm=loadPublic(frm)
+  to=loadPublic(to)
+  sig=smsg[1]
+  
+  if cmd!='receive':
+    print('Unknown command: '+str(cmd))
+    return
+  if frm!=pub:
+    print('Not me: '+str(frm)+' '+str(pub))
+    return
+  if not rsa.verify(str(sig), to):
+    print('Not verified')
+    return
+  cs.save('coins.dat')
+  
+  eventloop.halt()
+
+if __name__=='__main__':
+  to=sys.argv[1]
+
+  cs=Coins()
+  cs.load('coins.dat')
+  coin=cs.get()
+  
+  if not coin:
+    print('No coins!')
+  else:
+    send(coin, to)
+    eventloop.run()

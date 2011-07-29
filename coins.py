@@ -4,6 +4,7 @@ import json
 import rsa
 
 from util import encode, decode
+from keys import fixPub
 
 class Coin:
   def __init__(self, seed=None, pub=None, sig=None):
@@ -21,16 +22,13 @@ class Coin:
   def load(self, l):
     seed, pub, sig=l
     self.seed=decode(seed)
-    self.pub=rsa.key.PublicKey.load_pkcs1_der(decode(pub))
+    self.pub=fixPub(rsa.key.PublicKey.load_pkcs1_der(decode(pub)))
     self.sig=sig
     
   def verify(self):
-    return True # FIXME
-    if rsa.verify(self.sig, self.pub):
-      print('Verified')
+    if rsa.verify(str(self.sig), self.pub):
       return True
     else:
-      print('Not verified')
       return False
 
 class Coins:
@@ -63,9 +61,6 @@ class Coins:
     f.close()
 
   def create(self, id, pub, priv):
-    print('creating')
-    print(type(id))
-    print(type(priv))
     coin=Coin(id, pub, rsa.sign(id, priv))
     self.coins.append(coin)
 
@@ -75,3 +70,5 @@ class Coins:
     else:
       return self.coins.pop()
       
+  def add(self, coin):
+    self.coins.append(coin)
