@@ -28,7 +28,7 @@ def send(coin, to):
   smsg=json.dumps([msg, sig])
 
   client=Client()
-  yield client.connect('localhost', 7050)
+  yield client.connect('blanu.net', 7050)
   yield client.write(smsg+"\n")
 
   s=yield client.read_until("\n")
@@ -44,8 +44,10 @@ def send(coin, to):
   if cmd!='receive':
     print('Unknown command: '+str(cmd))
     return
-  if frm!=pub:
-    print('Not me: '+str(frm)+' '+str(pub))
+  if frm.save_pkcs1_der()!=pub.save_pkcs1_der():
+    print('Not me')
+    print(encode(frm.save_pkcs1_der()))
+    print(encode(pub.save_pkcs1_der()))
     return
   if not rsa.verify(str(sig), to):
     print('Not verified')
