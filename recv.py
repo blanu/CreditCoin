@@ -58,7 +58,7 @@ def handle_recv(conn):
   cs.add(coin)
   cs.save('coins.dat')
   
-  msg=['receive', coin.save(), encode(pub.save_pkcs1_der()), encode(to.save_pkcs1_der())]
+  msg=['receive', coin.save(), encode(frm.save_pkcs1_der()), encode(to.save_pkcs1_der())]
   msgs=json.dumps(msg)
   sig=rsa.sign(msgs, priv)
 
