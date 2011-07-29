@@ -1,0 +1,4 @@
+signup.py to create new keys
+create.py to mint new coins
+send.py to send a coin to a specified public key
+
