@@ -16,43 +16,42 @@ from monocle.stack.network import add_service, Client, ConnectionLost
 from coins import Coin, Coins
 from keys import loadKeys, loadPublic, loadPrivate
 from util import encode, decode
+from receipts import Receipts, Send, Receive
 
 (pub, priv) = loadKeys()
 
 @_o
 def send(coin, to):
-  msg=['send', coin.save(), encode(pub.save_pkcs1_der()), to]
-  msgs=json.dumps(msg)
-  sig=rsa.sign(msgs, priv)
-
-  smsg=json.dumps([msg, sig])
-
+  receipt=Send(None, pub, coin, to)
+  receipt.setPrivate(priv)
+  receipt.sign()
+  
+  receipts.add(receipt)
+  receipts.save('receipts.dat')
+  
+  smsg=receipt.save(True)
+  
   client=Client()
   yield client.connect('blanu.net', 7050)
   yield client.write(smsg+"\n")
 
   s=yield client.read_until("\n")
-  smsg=json.loads(s)
-  msg=smsg[0]
-  cmd, scoin, frm, to=msg
-  coin=Coin()
-  coin.load(scoin)
-  frm=loadPublic(frm)
-  to=loadPublic(to)
-  sig=smsg[1]
+  msg=json.loads(s)
+  receipt=Receive()
+  receipt.load(msg)
   
-  if cmd!='receive':
-    print('Unknown command: '+str(cmd))
+  if receipt.cmd!='receive':
+    print('Unknown command: '+str(receipt.cmd))
     return
-  if frm.save_pkcs1_der()!=pub.save_pkcs1_der():
+  if receipt.frm.save_pkcs1_der()!=pub.save_pkcs1_der():
     print('Not me')
-    print(encode(frm.save_pkcs1_der()))
-    print(encode(pub.save_pkcs1_der()))
     return
-  if not rsa.verify(str(sig), to):
+  if not rsa.verify(str(receipt.sig), receipt.pub):
     print('Not verified')
-    return
+    return    
   cs.save('coins.dat')
+  receipts.add(receipt)
+  receipts.save('receipts.data')
   
   eventloop.halt()
 

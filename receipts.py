@@ -64,19 +64,13 @@ class Create(Receipt):
     Receipt.__init__(self, sig, pub, 'create', coin)
     
 class Send(Receipt):
-  def __init__(self, pub=None, sig=None, args=None):
-    Receipt.__init__(self, pub, sig, 'send', args)
-    self.coin=Coin()
-    self.coin.load()
-    self.coin.verify()
-    
-class Receive(Receipt):
-  def __init__(self, pub=None, sig=None, args=None):
-    Receipt.__init__(self, pub, sig, 'receive', args)
-    self.coin=Coin()
-    self.coin.load()
-    self.coin.verify()
+  def __init__(self, sig=None, pub=None, coin=None, to=None):
+    Receipt.__init__(self, sig, pub, 'send', coin, to)
 
+class Receive(Receipt):
+  def __init__(self, sig=None, pub=None, coin=None, frm=None):
+    Receipt.__init__(self, sig, pub, 'receive', coin, frm)
+    
 class Receipts:
   def __init__(self):
     self.receipts=[]
