@@ -51,7 +51,7 @@ def handle_recv(conn):
   receipts.add(receipt)
   receipts.save('receipts.dat')
 
-  receipt=Receive(None, pub, coin, frm)
+  receipt=Receive(None, pub, receipt.coin, receipt.pub)
   receipt.setPrivate(priv)
   receipt.sign()
   receipts.add(receipt)
