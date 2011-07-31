@@ -17,9 +17,6 @@ class Receipt:
     self.args=args
     
     self.priv=None
-
-    if self.pub and self.cmd and self.coin and self.args:
-      self.makeMessage()
     
   def load(self, l):
     self.sig=l[0]

@@ -3,6 +3,7 @@ import time
 import random
 import struct
 import json
+import traceback
 
 import rsa
 
@@ -22,14 +23,17 @@ from receipts import Receipts, Send, Receive
 
 @_o
 def send(coin, to):
+ try:
   receipt=Send(None, pub, coin, to)
   receipt.setPrivate(priv)
   receipt.sign()
-  
+
+  receipts=Receipts()
+  receipts.load('receipts.data')  
   receipts.add(receipt)
   receipts.save('receipts.dat')
   
-  smsg=receipt.save(True)
+  smsg=json.dumps(receipt.save(True))
   
   client=Client()
   yield client.connect('blanu.net', 7050)
@@ -54,6 +58,10 @@ def send(coin, to):
   receipts.save('receipts.data')
   
   eventloop.halt()
+ except Exception, e:
+  print('Exception:')
+  print(e)
+  traceback.print_exc()
 
 if __name__=='__main__':
   to=sys.argv[1]

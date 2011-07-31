@@ -16,6 +16,7 @@ from monocle.stack.network import add_service, Service, ConnectionLost
 from coins import Coin, Coins
 from keys import loadKeys, loadPrivate, loadPublic
 from util import encode, decode
+from receipts import Receipts, Send, Receive
 
 cs=Coins()
 cs.load('coins.dat')
@@ -27,42 +28,36 @@ def handle_recv(conn):
   print('connected')
   s=yield conn.read_until("\n")
   print('read')
-  print('s:')
   print(s)
-  print(len(s))
-  print(type(s))
   smsg=json.loads(s)
-  msg=smsg[0]
-  cmd, scoin, frm, to=msg
-  coin=Coin()
-  coin.load(scoin)
-  frm=loadPublic(frm)
-  print('to:')
-  print(to)
-  to=loadPublic(to)
-  sig=smsg[1]
+
+  receipts=Receipts()
+  receipts.load('receipts.dat')  
   
-  if cmd!='send':
-    print('Unknown command: '+str(cmd))
+  receipt=Send()
+  receipt.load(smsg)
+  
+  if receipt.cmd!='send':
+    print('Unknown command: '+str(receipt.cmd))
     return
-  if to!=pub:
-    print('Not me: '+str(to)+' '+str(pub))
+  if receipt.to!=pub:
+    print('Not me: '+str(receipt.to)+' '+str(pub))
     return
-  print('sig:')
-  print(type(sig))
-  print('frm:')
-  print(type(frm))
-  if not rsa.verify(str(sig), frm):
+  if not rsa.verify(str(receipt.sig), receipt.pub):
     print('Not verified')
     return
-  cs.add(coin)
+  cs.add(receipt.coin)
   cs.save('coins.dat')
-  
-  msg=['receive', coin.save(), encode(frm.save_pkcs1_der()), encode(to.save_pkcs1_der())]
-  msgs=json.dumps(msg)
-  sig=rsa.sign(msgs, priv)
+  receipts.add(receipt)
+  receipts.save('receipts.dat')
 
-  smsg=json.dumps([msg, sig])
+  receipt=Receive(None, pub, coin, frm)
+  receipt.setPrivate(priv)
+  receipt.sign()
+  receipts.add(receipt)
+  receipts.save('receipts.data')    
+
+  smsg=json.dumps(receipt.save(True))
 
   print('sending')  
   print(smsg)
