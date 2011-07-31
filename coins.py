@@ -1,5 +1,6 @@
 import os
 import json
+import random
 
 import rsa
 
@@ -34,6 +35,13 @@ class Coin:
 class Coins:
   def __init__(self):
     self.coins=[]
+    
+  def new(self, pub, priv):
+    s=''
+    for x in range(20):
+      i=random.getrandbits(8)
+      s=s+chr(i)
+    return self.create(s, pub, priv)
 
   def load(self, filename):
     if os.path.exists(filename):
@@ -63,6 +71,7 @@ class Coins:
   def create(self, id, pub, priv):
     coin=Coin(id, pub, rsa.sign(id, priv))
     self.coins.append(coin)
+    return coin
 
   def get(self):
     if len(self.coins)==0:
