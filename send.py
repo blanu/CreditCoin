@@ -47,7 +47,7 @@ def send(coin, to):
   if receipt.cmd!='receive':
     print('Unknown command: '+str(receipt.cmd))
     return
-  if receipt.frm.save_pkcs1_der()!=pub.save_pkcs1_der():
+  if receipt.args.save_pkcs1_der()!=pub.save_pkcs1_der():
     print('Not me')
     return
   if not rsa.verify(str(receipt.sig), receipt.pub):

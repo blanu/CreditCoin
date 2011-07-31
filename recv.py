@@ -40,8 +40,8 @@ def handle_recv(conn):
   if receipt.cmd!='send':
     print('Unknown command: '+str(receipt.cmd))
     return
-  if receipt.to!=pub:
-    print('Not me: '+str(receipt.to)+' '+str(pub))
+  if receipt.args!=pub:
+    print('Not me: '+str(receipt.args)+' '+str(pub))
     return
   if not rsa.verify(str(receipt.sig), receipt.pub):
     print('Not verified')
