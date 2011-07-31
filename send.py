@@ -24,7 +24,7 @@ from receipts import Receipts, Send, Receive
 @_o
 def send(coin, to):
  try:
-  receipt=Send(None, pub, coin, to)
+  receipt=Send(None, pub, coin, loadPublic(to))
   receipt.setPrivate(priv)
   receipt.sign()
 
