@@ -24,11 +24,13 @@ class Receipt:
   def load(self, l):
     self.sig=l[0]
     self.pub=l[1]
-    self.pub=loadPublic(pub)    
+    self.pub=loadPublic(self.pub)    
     self.cmd=l[2]
     self.coin=Coin()
     self.coin.load(l[3])
-    self.args=l[4]
+    
+    if len(l)==5:
+      self.args=l[4]
            
   def save(self, saveSig):
     if self.args:
@@ -39,8 +41,6 @@ class Receipt:
     if saveSig:
       msg=[self.sig]+msg
       
-    print('saving: '+str(msg))
-
     return msg        
     
   def setPrivate(self, priv):
