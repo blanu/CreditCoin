@@ -27,11 +27,11 @@ class Receipt:
     self.coin.load(l[3])
     
     if len(l)==5:
-      self.args=l[4]
+      self.args=loadPublic(l[4])
            
   def save(self, saveSig):
     if self.args:
-      msg=[encode(self.pub.save_pkcs1_der()), self.cmd, self.coin.save(), self.args]
+      msg=[encode(self.pub.save_pkcs1_der()), self.cmd, self.coin.save(), encode(self.args.save_pkcs1_der())]
     else:
       msg=[encode(self.pub.save_pkcs1_der()), self.cmd, self.coin.save()]
       
