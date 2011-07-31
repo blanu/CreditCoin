@@ -55,7 +55,8 @@ def send(coin, to):
     return    
   cs.save('coins.dat')
   receipts.add(receipt)
-  receipts.save('receipts.data')
+  print('saving '+str(len(receipts)))
+  receipts.save('receipts.dat')
   
   eventloop.halt()
  except Exception, e:

@@ -55,7 +55,7 @@ def handle_recv(conn):
   receipt.setPrivate(priv)
   receipt.sign()
   receipts.add(receipt)
-  receipts.save('receipts.data')    
+  receipts.save('receipts.dat')    
 
   smsg=json.dumps(receipt.save(True))
 
