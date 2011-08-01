@@ -2,14 +2,14 @@ import rsa
 
 from util import encode, decode
 
-def genKeys():
+def genKeys(dir):
   (pub, priv) = rsa.newkeys(512)
 
-  f=open('id_rsa', 'wb')
+  f=open(dir+'/id_rsa', 'wb')
   f.write(priv.save_pkcs1())
   f.close()
 
-  f=open('id_rsa.pub', 'wb')
+  f=open(dir+'/id_rsa.pub', 'wb')
   f.write(pub.save_pkcs1())
   f.close()
 
@@ -25,13 +25,13 @@ def fixPriv(priv):
 def fixPub(pub):
   return rsa.key.PublicKey(long(pub.n), long(pub.e))
 
-def loadKeys():
-  f=open('id_rsa', 'rb')
+def loadKeys(dir):
+  f=open(dir+'/id_rsa', 'rb')
   s=f.read()
   priv=fixPriv(rsa.key.PrivateKey.load_pkcs1(s))
   f.close()
 
-  f=open('id_rsa.pub', 'rb')
+  f=open(dir+'/id_rsa.pub', 'rb')
   s=f.read()
   pub=fixPub(rsa.key.PublicKey.load_pkcs1(s))
   f.close()

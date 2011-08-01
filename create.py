@@ -1,3 +1,4 @@
+import sys
 import time
 import random
 import struct
@@ -5,18 +6,22 @@ import struct
 from keys import loadKeys
 from coins import Coins
 from receipts import Create, Receipts
+from util import epoch
 
-pub, priv = loadKeys()
+dir=sys.argv[1]
+
+pub, priv = loadKeys(dir)
 
 cs=Coins()
-cs.load('coins.dat')
+cs.load(dir+'/coins.dat')
 coin=cs.new(pub, priv)
-cs.save('coins.dat')
+cs.save(dir+'/coins.dat')
 
 receipts=Receipts()
-receipts.load('receipts.dat')
-cr=Create(None, pub, coin)
+receipts.load(dir+'/receipts.dat')
+cr=Create(None, pub, epoch(), coin)
 cr.setPrivate(priv)
 cr.sign()
 receipts.add(cr)
-receipts.save('receipts.dat')
+receipts.save(dir+'/receipts.dat')
+

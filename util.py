@@ -1,11 +1,15 @@
 import re
 import sys
+import time
 import binascii
 
 from struct import pack, unpack
 from socket import inet_aton, inet_ntoa
 
 v3=(sys.version[0]=='3')
+
+def epoch():
+  return int(time.time())/100
 
 def uncompact(x):
     ip, port = unpack("!4sH", x)

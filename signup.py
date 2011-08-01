@@ -1,8 +1,11 @@
+import sys
 import time
 import random
 import struct
 
 from keys import genKeys
 
-genKeys()
+dir=sys.argv[1]
+
+genKeys(dir)
 

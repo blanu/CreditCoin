@@ -16,27 +16,29 @@ from monocle.stack.network import add_service, Client, ConnectionLost
 
 from coins import Coin, Coins
 from keys import loadKeys, loadPublic, loadPrivate
-from util import encode, decode
+from util import encode, decode, epoch
 from receipts import Receipts, Send, Receive
 
-(pub, priv) = loadKeys()
+dir=sys.argv[1]
+to=sys.argv[2]
+(pub, priv) = loadKeys(dir)
 
 @_o
-def send(coin, to):
+def send(dir, coin, to):
  try:
-  receipt=Send(None, pub, coin, loadPublic(to))
+  receipt=Send(None, pub, epoch(), coin, loadPublic(to))
   receipt.setPrivate(priv)
   receipt.sign()
 
   receipts=Receipts()
-  receipts.load('receipts.data')  
+  receipts.load(dir+'/receipts.dat')  
   receipts.add(receipt)
-  receipts.save('receipts.dat')
   
   smsg=json.dumps(receipt.save(True))
   
+  print('sending')
   client=Client()
-  yield client.connect('blanu.net', 7050)
+  yield client.connect('localhost', 7050)
   yield client.write(smsg+"\n")
 
   s=yield client.read_until("\n")
@@ -53,10 +55,11 @@ def send(coin, to):
   if not rsa.verify(str(receipt.sig), receipt.pub):
     print('Not verified')
     return    
-  cs.save('coins.dat')
+    
+  cs.save(dir+'/coins.dat')
   receipts.add(receipt)
-  print('saving '+str(len(receipts)))
-  receipts.save('receipts.dat')
+  print('saving '+str(len(receipts.receipts)))
+  receipts.save(dir+'/receipts.dat')
   
   eventloop.halt()
  except Exception, e:
@@ -65,14 +68,12 @@ def send(coin, to):
   traceback.print_exc()
 
 if __name__=='__main__':
-  to=sys.argv[1]
-
   cs=Coins()
-  cs.load('coins.dat')
+  cs.load(dir+'/coins.dat')
   coin=cs.get()
   
   if not coin:
     print('No coins!')
   else:
-    send(coin, to)
+    send(dir, coin, to)
     eventloop.run()

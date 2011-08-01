@@ -3,15 +3,16 @@ import json
 
 import rsa
 
-from util import encode, decode
+from util import encode, decode, epoch
 from keys import loadPublic
 
 from coins import Coin
 
 class Receipt:
-  def __init__(self, sig=None, pub=None, cmd=None, coin=None, args=None):
+  def __init__(self, sig=None, pub=None, time=None, cmd=None, coin=None, args=None):
     self.sig=sig
     self.pub=pub
+    self.time=time
     self.cmd=cmd
     self.coin=coin
     self.args=args
@@ -22,18 +23,19 @@ class Receipt:
     self.sig=l[0]
     self.pub=l[1]
     self.pub=loadPublic(self.pub)    
-    self.cmd=l[2]
+    self.time=l[2]
+    self.cmd=l[3]
     self.coin=Coin()
-    self.coin.load(l[3])
+    self.coin.load(l[4])
     
-    if len(l)==5:
-      self.args=loadPublic(l[4])
+    if len(l)==6:
+      self.args=loadPublic(l[5])
            
   def save(self, saveSig):
     if self.args:
-      msg=[encode(self.pub.save_pkcs1_der()), self.cmd, self.coin.save(), encode(self.args.save_pkcs1_der())]
+      msg=[encode(self.pub.save_pkcs1_der()), self.time, self.cmd, self.coin.save(), encode(self.args.save_pkcs1_der())]
     else:
-      msg=[encode(self.pub.save_pkcs1_der()), self.cmd, self.coin.save()]
+      msg=[encode(self.pub.save_pkcs1_der()), self.time, self.cmd, self.coin.save()]
       
     if saveSig:
       msg=[self.sig]+msg
@@ -57,16 +59,16 @@ class Receipt:
       return False
       
 class Create(Receipt):
-  def __init__(self, sig=None, pub=None, coin=None, args=None):
-    Receipt.__init__(self, sig, pub, 'create', coin)
+  def __init__(self, sig=None, pub=None, time=None, coin=None, args=None):
+    Receipt.__init__(self, sig, pub, time, 'create', coin)
     
 class Send(Receipt):
-  def __init__(self, sig=None, pub=None, coin=None, to=None):
-    Receipt.__init__(self, sig, pub, 'send', coin, to)
+  def __init__(self, sig=None, pub=None, time=None, coin=None, to=None):
+    Receipt.__init__(self, sig, pub, time, 'send', coin, to)
 
 class Receive(Receipt):
-  def __init__(self, sig=None, pub=None, coin=None, frm=None):
-    Receipt.__init__(self, sig, pub, 'receive', coin, frm)
+  def __init__(self, sig=None, pub=None, time=None, coin=None, frm=None):
+    Receipt.__init__(self, sig, pub, time, 'receive', coin, frm)
     
 class Receipts:
   def __init__(self):
@@ -89,6 +91,7 @@ class Receipts:
       self.receipts=[]
 
   def save(self, filename):
+    print('save')
     f=open(filename, 'wb')
     l=[]
     for receipt in self.receipts:
@@ -97,15 +100,14 @@ class Receipts:
     f.write(b)
     f.close()
 
-  def create(self, id, pub, priv):
-    receipt=Receipt(id, pub, rsa.sign(id, priv))
-    self.receipts.append(receipt)
-
   def get(self):
+    print('get')
     if len(self.receipts)==0:
       return None
     else:
       return self.receipts.pop()
       
   def add(self, receipt):
+    print('add')
+    print('appending '+str(receipt)+str(len(self.receipts)))
     self.receipts.append(receipt)

@@ -15,13 +15,15 @@ from monocle.stack.network import add_service, Service, ConnectionLost
 
 from coins import Coin, Coins
 from keys import loadKeys, loadPrivate, loadPublic
-from util import encode, decode
+from util import encode, decode, epoch
 from receipts import Receipts, Send, Receive
 
-cs=Coins()
-cs.load('coins.dat')
+dir=sys.argv[1]
 
-(pub, priv) = loadKeys()
+cs=Coins()
+cs.load(dir+'/coins.dat')
+
+(pub, priv) = loadKeys(dir)
 
 @_o
 def handle_recv(conn):
@@ -32,7 +34,7 @@ def handle_recv(conn):
   smsg=json.loads(s)
 
   receipts=Receipts()
-  receipts.load('receipts.dat')  
+  receipts.load(dir+'/receipts.dat')  
   
   receipt=Send()
   receipt.load(smsg)
@@ -47,15 +49,15 @@ def handle_recv(conn):
     print('Not verified')
     return
   cs.add(receipt.coin)
-  cs.save('coins.dat')
+  cs.save(dir+'/coins.dat')
   receipts.add(receipt)
-  receipts.save('receipts.dat')
+  receipts.save(dir+'/receipts.dat')
 
-  receipt=Receive(None, pub, receipt.coin, receipt.pub)
+  receipt=Receive(None, pub, epoch(), receipt.coin, receipt.pub)
   receipt.setPrivate(priv)
   receipt.sign()
   receipts.add(receipt)
-  receipts.save('receipts.dat')    
+  receipts.save(dir+'/receipts.dat')    
 
   smsg=json.dumps(receipt.save(True))
 
