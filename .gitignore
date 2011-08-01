@@ -3,3 +3,6 @@ id_rsa
 id_rsa.pub
 receipts.dat
 *.pyc
+nodeA/*
+nodeB/*
+
