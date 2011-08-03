@@ -16,52 +16,52 @@ class Receipt:
     self.cmd=cmd
     self.coin=coin
     self.args=args
-    
+
     self.priv=None
-    
+
   def load(self, l):
     self.sig=l[0]
     self.pub=l[1]
-    self.pub=loadPublic(self.pub)    
+    self.pub=loadPublic(self.pub)
     self.time=l[2]
     self.cmd=l[3]
     self.coin=Coin()
     self.coin.load(l[4])
-    
+
     if len(l)==6:
       self.args=loadPublic(l[5])
-           
+
   def save(self, saveSig):
     if self.args:
       msg=[encode(self.pub.save_pkcs1_der()), self.time, self.cmd, self.coin.save(), encode(self.args.save_pkcs1_der())]
     else:
       msg=[encode(self.pub.save_pkcs1_der()), self.time, self.cmd, self.coin.save()]
-      
+
     if saveSig:
       msg=[self.sig]+msg
-      
-    return msg        
-    
+
+    return msg
+
   def setPrivate(self, priv):
     self.priv=priv
-    
+
   def sign(self):
     if self.priv:
       print('Signing')
       self.sig=rsa.sign(json.dumps(self.save(False)), self.priv)
     else:
       print('No private key')
-    
+
   def verify(self):
     if rsa.verify(str(self.sig), self.pub):
       return True
     else:
       return False
-      
+
 class Create(Receipt):
-  def __init__(self, sig=None, pub=None, time=None, coin=None, args=None):
-    Receipt.__init__(self, sig, pub, time, 'create', coin)
-    
+  def __init__(self, sig=None, pub=None, time=None, coin=None, proof=None):
+    Receipt.__init__(self, sig, pub, time, 'create', coin, proof)
+
 class Send(Receipt):
   def __init__(self, sig=None, pub=None, time=None, coin=None, to=None):
     Receipt.__init__(self, sig, pub, time, 'send', coin, to)
@@ -69,7 +69,7 @@ class Send(Receipt):
 class Receive(Receipt):
   def __init__(self, sig=None, pub=None, time=None, coin=None, frm=None):
     Receipt.__init__(self, sig, pub, time, 'receive', coin, frm)
-    
+
 class Receipts:
   def __init__(self):
     self.receipts=[]
@@ -106,7 +106,7 @@ class Receipts:
       return None
     else:
       return self.receipts.pop()
-      
+
   def add(self, receipt):
     print('add')
     print('appending '+str(receipt)+str(len(self.receipts)))

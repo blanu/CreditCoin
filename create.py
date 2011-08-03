@@ -10,6 +10,11 @@ from util import epoch
 
 dir=sys.argv[1]
 
+if len(sys.argv)>2:
+  proof=sys.argv[2]
+else:
+  proof=None
+
 pub, priv = loadKeys(dir)
 
 cs=Coins()
@@ -19,9 +24,8 @@ cs.save(dir+'/coins.dat')
 
 receipts=Receipts()
 receipts.load(dir+'/receipts.dat')
-cr=Create(None, pub, epoch(), coin)
+cr=Create(None, pub, epoch(), coin, proof)
 cr.setPrivate(priv)
 cr.sign()
 receipts.add(cr)
 receipts.save(dir+'/receipts.dat')
-
