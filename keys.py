@@ -14,10 +14,10 @@ def genKeys(dir):
   f.close()
 
 def loadPublic(s):
-  return fixPub(rsa.key.PublicKey.load_pkcs1_der(decode(s)))
+  return fixPub(rsa.key.PublicKey.load_pkcs1(decode(s), 'DER'))
 
 def loadPrivate(s):
-  return fixPriv(rsa.key.PrivateKey.load_pkcs1_der(decode(s)))
+  return fixPriv(rsa.key.PrivateKey.load_pkcs1(decode(s), 'DER'))
 
 def fixPriv(priv):
   return rsa.key.PrivateKey(long(priv.n), long(priv.e), long(priv.d), long(priv.p), long(priv.q), long(priv.exp1), long(priv.exp2), long(priv.coef))

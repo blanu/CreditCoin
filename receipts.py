@@ -10,6 +10,7 @@ from coins import Coin
 
 class Receipt:
   def __init__(self, sig=None, pub=None, time=None, cmd=None, coin=None, args=None):
+    print('Receipt: '+str(pub))
     self.sig=sig
     self.pub=pub
     self.time=time
@@ -20,7 +21,7 @@ class Receipt:
     self.priv=None
 
   def load(self, l):
-    self.sig=l[0]
+    self.sig=decode(l[0])
     self.pub=l[1]
     self.pub=loadPublic(self.pub)
     self.time=l[2]
@@ -29,16 +30,22 @@ class Receipt:
     self.coin.load(l[4])
 
     if len(l)==6:
-      self.args=loadPublic(l[5])
+      if self.cmd=='create':
+        self.args=l[5]
+      else:
+        self.args=loadPublic(l[5])
 
   def save(self, saveSig):
     if self.args:
-      msg=[encode(self.pub.save_pkcs1_der()), self.time, self.cmd, self.coin.save(), encode(self.args.save_pkcs1_der())]
+      if type(self.args)==unicode:
+        msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.save(), self.args]
+      else:
+        msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.save(), encode(self.args.save_pkcs1('DER'))]
     else:
-      msg=[encode(self.pub.save_pkcs1_der()), self.time, self.cmd, self.coin.save()]
+      msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.save()]
 
     if saveSig:
-      msg=[self.sig]+msg
+      msg=[encode(self.sig)]+msg
 
     return msg
 
@@ -48,12 +55,12 @@ class Receipt:
   def sign(self):
     if self.priv:
       print('Signing')
-      self.sig=rsa.sign(json.dumps(self.save(False)), self.priv)
+      self.sig=rsa.sign(json.dumps(self.save(False)), self.priv, 'SHA-1')
     else:
       print('No private key')
 
   def verify(self):
-    if rsa.verify(str(self.sig), self.pub):
+    if rsa.verify(json.dumps(self.save(False)), str(self.sig), self.pub):
       return True
     else:
       return False
@@ -96,6 +103,7 @@ class Receipts:
     l=[]
     for receipt in self.receipts:
       l.append(receipt.save(True))
+    print(l)
     b=json.dumps(l)
     f.write(b)
     f.close()

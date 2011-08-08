@@ -12,22 +12,22 @@ class Coin:
     self.seed=seed
     self.pub=pub
     self.sig=sig
-    
+
   def save(self):
     seed=encode(self.seed)
-    pub=encode(self.pub.save_pkcs1_der())
-    sig=self.sig
-    
+    pub=encode(self.pub.save_pkcs1('DER'))
+    sig=encode(self.sig)
+
     return [seed, pub, sig]
-    
+
   def load(self, l):
     seed, pub, sig=l
     self.seed=decode(seed)
-    self.pub=fixPub(rsa.key.PublicKey.load_pkcs1_der(decode(pub)))
-    self.sig=sig
-    
+    self.pub=fixPub(rsa.key.PublicKey.load_pkcs1(decode(pub), 'DER'))
+    self.sig=decode(sig)
+
   def verify(self):
-    if rsa.verify(str(self.sig), self.pub):
+    if rsa.verify(self.seed, str(self.sig), self.pub):
       return True
     else:
       return False
@@ -35,7 +35,7 @@ class Coin:
 class Coins:
   def __init__(self):
     self.coins=[]
-    
+
   def new(self, pub, priv):
     s=''
     for x in range(20):
@@ -64,12 +64,13 @@ class Coins:
     l=[]
     for coin in self.coins:
       l.append(coin.save())
+    print(l)
     b=json.dumps(l)
     f.write(b)
     f.close()
 
   def create(self, id, pub, priv):
-    coin=Coin(id, pub, rsa.sign(id, priv))
+    coin=Coin(id, pub, rsa.sign(id, priv, 'SHA-1'))
     self.coins.append(coin)
     return coin
 
@@ -78,6 +79,6 @@ class Coins:
       return None
     else:
       return self.coins.pop()
-      
+
   def add(self, coin):
     self.coins.append(coin)

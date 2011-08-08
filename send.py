@@ -31,11 +31,11 @@ def send(dir, coin, to):
   receipt.sign()
 
   receipts=Receipts()
-  receipts.load(dir+'/receipts.dat')  
+  receipts.load(dir+'/receipts.dat')
   receipts.add(receipt)
-  
+
   smsg=json.dumps(receipt.save(True))
-  
+
   print('sending')
   client=Client()
   yield client.connect('localhost', 7050)
@@ -45,22 +45,22 @@ def send(dir, coin, to):
   msg=json.loads(s)
   receipt=Receive()
   receipt.load(msg)
-  
+
   if receipt.cmd!='receive':
     print('Unknown command: '+str(receipt.cmd))
     return
-  if receipt.args.save_pkcs1_der()!=pub.save_pkcs1_der():
+  if receipt.args.save_pkcs1('DER')!=pub.save_pkcs1('DER'):
     print('Not me')
     return
   if not rsa.verify(str(receipt.sig), receipt.pub):
     print('Not verified')
-    return    
-    
+    return
+
   cs.save(dir+'/coins.dat')
   receipts.add(receipt)
   print('saving '+str(len(receipts.receipts)))
   receipts.save(dir+'/receipts.dat')
-  
+
   eventloop.halt()
  except Exception, e:
   print('Exception:')
@@ -71,7 +71,7 @@ if __name__=='__main__':
   cs=Coins()
   cs.load(dir+'/coins.dat')
   coin=cs.get()
-  
+
   if not coin:
     print('No coins!')
   else:

@@ -10,4 +10,4 @@ from util import encode
 dir=sys.argv[1]
 
 pub, priv = loadKeys(dir)
-print(encode(pub.save_pkcs1_der()))
+print(encode(pub.save_pkcs1('DER')))
