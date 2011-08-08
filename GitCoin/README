@@ -1,0 +1,6 @@
+You need paver installed to run the tasks contained in the pavement.py file.
+
+paver signup username token
+  - generate keypair and publish public key to Github
+paver create username token user/project branch
+  - mint coins based on git commits from the specified project and branch
