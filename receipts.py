@@ -1,5 +1,8 @@
 import os
 import json
+import base64
+import random
+import hashlib
 
 import rsa
 
@@ -18,9 +21,24 @@ class Receipt:
     self.coin=coin
     self.args=args
 
+    if self.sig:
+      h=hashlib.sha1()
+      h.update(self.serialize(saveSig=True, jsonify=True))
+      self.id=base64.b32encode(h.digest())
+
     self.priv=None
 
-  def load(self, l):
+  def load(self, filename):
+    f=open(filename, 'rb')
+    l=json.loads(f.read())
+    f.close()
+    self.deserialize(l)
+
+    h=hashlib.sha1()
+    h.update(self.serialize(saveSig=True, jsonify=True))
+    self.id=base64.b32encode(h.digest())
+
+  def deserialize(self, l):
     self.sig=decode(l[0])
     self.pub=l[1]
     self.pub=loadPublic(self.pub)
@@ -35,19 +53,26 @@ class Receipt:
       else:
         self.args=loadPublic(l[5])
 
-  def save(self, saveSig):
+  def save(self, filename, saveSig):
+    f=open(filename, 'wb')
+    f.write(self.serialize(saveSig=saveSig, jsonify=True))
+
+  def serialize(self, saveSig=False, jsonify=False):
     if self.args:
       if type(self.args)==unicode:
-        msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.save(), self.args]
+        msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.serialize(jsonify=False), self.args]
       else:
-        msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.save(), encode(self.args.save_pkcs1('DER'))]
+        msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.serialize(jsonify=False), encode(self.args.save_pkcs1('DER'))]
     else:
-      msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.save()]
+      msg=[encode(self.pub.save_pkcs1('DER')), self.time, self.cmd, self.coin.serialize(jsonify=False)]
 
     if saveSig:
       msg=[encode(self.sig)]+msg
 
-    return msg
+    if jsonify:
+      return json.dumps(msg)
+    else:
+      return msg
 
   def setPrivate(self, priv):
     self.priv=priv
@@ -55,12 +80,16 @@ class Receipt:
   def sign(self):
     if self.priv:
       print('Signing')
-      self.sig=rsa.sign(json.dumps(self.save(False)), self.priv, 'SHA-1')
+      self.sig=rsa.sign(self.serialize(saveSig=False, jsonify=True), self.priv, 'SHA-1')
+
+      h=hashlib.sha1()
+      h.update(self.serialize(saveSig=True, jsonify=True))
+      self.id=base64.b32encode(h.digest())
     else:
       print('No private key')
 
   def verify(self):
-    if rsa.verify(json.dumps(self.save(False)), str(self.sig), self.pub):
+    if rsa.verify(self.serialize(saveSig=False, jsonify=True), str(self.sig), self.pub):
       return True
     else:
       return False
@@ -78,44 +107,27 @@ class Receive(Receipt):
     Receipt.__init__(self, sig, pub, time, 'receive', coin, frm)
 
 class Receipts:
-  def __init__(self):
-    self.receipts=[]
+  def __init__(self, filename):
+    self.filename=filename
 
-  def load(self, filename):
-    if os.path.exists(filename):
-      f=open(filename, 'rb')
-      b=f.read()
-      f.close()
-
-      self.receipts=[]
-      l=json.loads(b)
-      for item in l:
-        receipt=Receipt()
-        receipt.load(item)
-        if receipt.verify():
-          self.receipts.append(receipt)
+  def load(self):
+    if os.path.exists(self.filename):
+      receipts=[]
+      accounts=os.listdir(self.filename+'/receipts')
+      for account in accounts:
+        rs=os.listdir(self.filename+'/receipts/'+account)
+        for receiptfile in cs:
+          receipt=Receipt()
+          receipt.load(self.filename+'/receipts/'+account+'/'+receiptfile, 'rb')
+          if receipt.verify():
+            receipts.append(receipt)
+      return receipts
     else:
-      self.receipts=[]
-
-  def save(self, filename):
-    print('save')
-    f=open(filename, 'wb')
-    l=[]
-    for receipt in self.receipts:
-      l.append(receipt.save(True))
-    print(l)
-    b=json.dumps(l)
-    f.write(b)
-    f.close()
-
-  def get(self):
-    print('get')
-    if len(self.receipts)==0:
-      return None
-    else:
-      return self.receipts.pop()
+      return []
 
   def add(self, receipt):
-    print('add')
-    print('appending '+str(receipt)+str(len(self.receipts)))
-    self.receipts.append(receipt)
+    if not os.path.exists(self.filename+'/receipts'):
+      os.mkdir(self.filename+'/receipts')
+    if not os.path.exists(self.filename+'/receipts/'+str(receipt.time)):
+      os.mkdir(self.filename+'/receipts/'+str(receipt.time))
+    receipt.save(self.filename+'/receipts/'+str(receipt.time)+'/'+receipt.id, saveSig=True)

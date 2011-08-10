@@ -16,15 +16,11 @@ class Mint:
     self.pub, self.priv = loadKeys(self.dir)
 
   def create(self, proof=None):
-    cs=Coins()
-    cs.load(self.dir+'/coins.dat')
-    coin=cs.new(self.pub, self.priv)
-    cs.save(self.dir+'/coins.dat')
+    coins=Coins(self.dir)
+    coin=coins.new(self.pub, self.priv)
 
-    receipts=Receipts()
-    receipts.load(self.dir+'/receipts.dat')
+    receipts=Receipts(self.dir)
     cr=Create(None, self.pub, epoch(), coin, proof)
     cr.setPrivate(self.priv)
     cr.sign()
     receipts.add(cr)
-    receipts.save(self.dir+'/receipts.dat')

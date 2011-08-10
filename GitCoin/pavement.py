@@ -16,8 +16,27 @@ options()
 
 @task
 def GitBank():
-  if not os.path.exists('GitBank'):
-    sh('git clone git://github.com/blanu/GitBank.git') # FIXME - this is the read-only URL
+  if os.path.exists('GitBank'):
+    return
+  github = Github(username="blanu", api_token="91eb4a7c4ce63f50f0aa6ed50b015715")
+  repos = github.repos.list('blanu') # FIXME - need username
+  found=None
+  for repo in repos:
+    if repo.name=='GitBank':
+      found=repo
+  if not found:
+    print('Forking...')
+    github.repos.fork('blanu/GitBank')
+
+    for repo in repos:
+      if repo.name=='GitBank':
+        found=repo
+  if found:
+    url=found.url.replace('https', 'git')+'.git'
+    print(found.url)
+    sh('git clone '+url)
+  else:
+    print('Fork failed.')
 
 @task
 @consume_args

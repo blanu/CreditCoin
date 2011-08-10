@@ -1,6 +1,8 @@
 import os
 import json
 import random
+import base64
+import hashlib
 
 import rsa
 
@@ -13,18 +15,52 @@ class Coin:
     self.pub=pub
     self.sig=sig
 
-  def save(self):
+    h=hashlib.sha1()
+    h.update(self.pub.save_pkcs1('DER'))
+    self.owner=base64.b32encode(h.digest())
+
+    h=hashlib.sha1()
+    h.update(self.serialize())
+    self.id=base64.b32encode(h.digest())
+
+  def save(self, filename):
+    if not os.path.exists(filename+'/coins'):
+      os.mkdir(filename+'/coins')
+    if not os.path.exists(filename+'/coins/'+self.owner):
+      os.mkdir(filename+'/coins/'+self.owner)
+    f=open(filename+'/coins/'+self.owner+'/'+self.id, 'wb')
+    f.write(self.serialize())
+    f.close()
+
+  def serialize(self, jsonify=True):
     seed=encode(self.seed)
     pub=encode(self.pub.save_pkcs1('DER'))
     sig=encode(self.sig)
 
-    return [seed, pub, sig]
+    if jsonify:
+      return json.dumps([seed, pub, sig])
+    else:
+      return [seed, pub, sig]
 
-  def load(self, l):
+  def load(self, filename):
+    f=open(filename, 'rb')
+    b=f.read()
+    f.close()
+    return self.deserialize(json.loads(b))
+
+  def deserialize(self, l):
     seed, pub, sig=l
     self.seed=decode(seed)
     self.pub=fixPub(rsa.key.PublicKey.load_pkcs1(decode(pub), 'DER'))
     self.sig=decode(sig)
+
+    h=hashlib.sha1()
+    h.update(self.pub.save_pkcs1('DER'))
+    self.owner=base64.b32encode(h.digest())
+
+    h=hashlib.sha1()
+    h.update(self.serialize())
+    self.id=base64.b32encode(h.digest())
 
   def verify(self):
     if rsa.verify(self.seed, str(self.sig), self.pub):
@@ -33,8 +69,8 @@ class Coin:
       return False
 
 class Coins:
-  def __init__(self):
-    self.coins=[]
+  def __init__(self, filename):
+    self.filename=filename
 
   def new(self, pub, priv):
     s=''
@@ -43,42 +79,33 @@ class Coins:
       s=s+chr(i)
     return self.create(s, pub, priv)
 
-  def load(self, filename):
-    if os.path.exists(filename):
-      f=open(filename, 'rb')
-      b=f.read()
-      f.close()
-
-      self.coins=[]
-      l=json.loads(b)
-      for item in l:
-        coin=Coin()
-        coin.load(item)
-        if coin.verify():
-          self.coins.append(coin)
+  def load(self):
+    if os.path.exists(self.filename):
+      coins=[]
+      accounts=os.listdir(self.filename+'/coins')
+      for account in accounts:
+        cs=os.listdir(self.filename+'/coins/'+account)
+        for coinfile in cs:
+          coin=Coin()
+          coin.load(self.filename+'/coins/'+account+'/'+coinfile, 'rb')
+          if coin.verify():
+            coins.append(coin)
+      return coins
     else:
-      self.coins=[]
-
-  def save(self, filename):
-    f=open(filename, 'wb')
-    l=[]
-    for coin in self.coins:
-      l.append(coin.save())
-    print(l)
-    b=json.dumps(l)
-    f.write(b)
-    f.close()
+      return []
 
   def create(self, id, pub, priv):
     coin=Coin(id, pub, rsa.sign(id, priv, 'SHA-1'))
-    self.coins.append(coin)
+    coin.save(self.filename)
     return coin
 
-  def get(self):
-    if len(self.coins)==0:
+  def get(self, filename):
+    coins=self.load()
+    if len(coins)==0:
       return None
     else:
-      return self.coins.pop()
+      coin=random.choice(coins) # FIXME - delete coin before returning
+      return coin
 
   def add(self, coin):
-    self.coins.append(coin)
+    coin.save(self.filename+'/coins/'+coin.owner+'/'+coin.id)
