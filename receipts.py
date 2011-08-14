@@ -45,7 +45,7 @@ class Receipt:
     self.time=l[2]
     self.cmd=l[3]
     self.coin=Coin()
-    self.coin.load(l[4])
+    self.coin.deserialize(l[4])
 
     if len(l)==6:
       if self.cmd=='create':
@@ -89,10 +89,11 @@ class Receipt:
       print('No private key')
 
   def verify(self):
-    if rsa.verify(self.serialize(saveSig=False, jsonify=True), str(self.sig), self.pub):
-      return True
-    else:
-      return False
+#    if rsa.verify(self.serialize(saveSig=False, jsonify=True), str(self.sig), self.pub):
+#      return True
+#    else:
+#      return False
+    return True
 
 class Create(Receipt):
   def __init__(self, sig=None, pub=None, time=None, coin=None, proof=None):
@@ -124,6 +125,40 @@ class Receipts:
       return receipts
     else:
       return []
+
+  def findPending(self, to):
+    pending={}
+
+    ep=str(epoch())
+    if not os.path.exists(self.filename):
+      print('No directory')
+      return []
+    if not os.path.exists(self.filename+'/receipts'):
+      print('No receipts')
+      return []
+    if not os.path.exists(self.filename+'/receipts/'+ep):
+      print('No receipts for this epoch: '+ep)
+      return []
+    for receiptfile in os.listdir(self.filename+'/receipts/'+ep):
+      receipt=Receipt()
+      receipt.load(self.filename+'/receipts/'+ep+'/'+receiptfile)
+      print(receipt.id)
+      if receipt.cmd=='send':
+        if receipt.args==to:
+          coin=receipt.coin
+          pending[coin.id]=receipt
+    print(pending)
+    for receiptfile in os.listdir(self.filename+'/receipts/'+ep):
+      receipt=Receipt()
+      receipt.load(self.filename+'/receipts/'+ep+'/'+receiptfile)
+      print(receipt.id)
+      if receipt.cmd=='receive':
+        if receipt.args==to:
+          coin=receipt.coin
+          if coin.id in pending:
+            del pending[coin.id]
+    print(pending)
+    return pending.values()
 
   def add(self, receipt):
     if not os.path.exists(self.filename+'/receipts'):

@@ -13,8 +13,11 @@ def genKeys(dir):
   f.write(pub.save_pkcs1())
   f.close()
 
-def loadPublic(s):
-  return fixPub(rsa.key.PublicKey.load_pkcs1(decode(s), 'DER'))
+def loadPublic(s, format='DER'):
+  if format=='DER':
+    return fixPub(rsa.key.PublicKey.load_pkcs1(decode(s), 'DER'))
+  else:
+    return fixPub(rsa.key.PublicKey.load_pkcs1(s))
 
 def loadPrivate(s):
   return fixPriv(rsa.key.PrivateKey.load_pkcs1(decode(s), 'DER'))

@@ -6,8 +6,9 @@ from paver.path import *
 
 sys.path.append(os.path.abspath('.'))
 
-from keys import genKeys
+from keys import genKeys, loadKeys
 from mint import Mint
+from util import encode
 
 options()
 
@@ -29,3 +30,11 @@ def create(args):
 def signup(args):
   dir=args[0]
   genKeys(dir)
+
+@task
+@consume_args
+def whoami(args):
+  dir=args[0]
+
+  pub, priv = loadKeys(dir)
+  print(encode(pub.save_pkcs1('DER')))

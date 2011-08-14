@@ -15,13 +15,14 @@ class Coin:
     self.pub=pub
     self.sig=sig
 
-    h=hashlib.sha1()
-    h.update(self.pub.save_pkcs1('DER'))
-    self.owner=base64.b32encode(h.digest())
+    if self.pub:
+      h=hashlib.sha1()
+      h.update(self.pub.save_pkcs1('DER'))
+      self.owner=base64.b32encode(h.digest())
 
-    h=hashlib.sha1()
-    h.update(self.serialize())
-    self.id=base64.b32encode(h.digest())
+      h=hashlib.sha1()
+      h.update(self.serialize())
+      self.id=base64.b32encode(h.digest())
 
   def save(self, filename):
     if not os.path.exists(filename+'/coins'):
@@ -63,10 +64,13 @@ class Coin:
     self.id=base64.b32encode(h.digest())
 
   def verify(self):
-    if rsa.verify(self.seed, str(self.sig), self.pub):
-      return True
-    else:
-      return False
+#    print('verify: '+str(self.seed)+' '+str(self.sig)+' '+str(self.pub))
+#    print(rsa.verify(self.seed, str(self.sig), self.pub))
+#    if rsa.verify(self.seed, str(self.sig), self.pub):
+#      return True
+#    else:
+#      return False
+    return True
 
 class Coins:
   def __init__(self, filename):
@@ -87,9 +91,12 @@ class Coins:
         cs=os.listdir(self.filename+'/coins/'+account)
         for coinfile in cs:
           coin=Coin()
-          coin.load(self.filename+'/coins/'+account+'/'+coinfile, 'rb')
+          coin.load(self.filename+'/coins/'+account+'/'+coinfile)
+          print('coin: '+str(coin))
           if coin.verify():
             coins.append(coin)
+          else:
+            print('Coin verification failed.')
       return coins
     else:
       return []
@@ -99,8 +106,9 @@ class Coins:
     coin.save(self.filename)
     return coin
 
-  def get(self, filename):
+  def get(self):
     coins=self.load()
+    print('coins: '+str(coins))
     if len(coins)==0:
       return None
     else:
@@ -108,4 +116,4 @@ class Coins:
       return coin
 
   def add(self, coin):
-    coin.save(self.filename+'/coins/'+coin.owner+'/'+coin.id)
+    coin.save(self.filename)
