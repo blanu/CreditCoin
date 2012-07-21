@@ -88,7 +88,7 @@
 - (NSString *)clearTextAsString;
 - (void)setClearTextWithData:(NSData *)c;
 - (void)setClearTextWithString:(NSString *)c;
-
+ 
 - (NSData *)cipherTextAsData;
 - (NSString *)cipherTextAsString;
 - (void)setCipherText:(NSData *)c;
