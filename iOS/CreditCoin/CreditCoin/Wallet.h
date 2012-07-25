@@ -9,5 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface Wallet : NSObject
+{
+	NSArray *coins;
+	NSArray *receipts;
+}
+
++ (Wallet *)load:(NSData *)coinData receipts:(NSData *)receiptData;
+
+- (Wallet *)init;
+- (Wallet *)initWithArrays:(NSArray *)coinArray receipts:(NSArray *)receiptArray;
 
 @end
