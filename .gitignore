@@ -1,8 +1,5 @@
-coins.dat
-id_rsa
-id_rsa.pub
-receipts.dat
 *.pyc
-nodeA/*
-nodeB/*
+data/*
 GitCoin/GitBank
+iOS/CreditCoin/CreditCoin.xcodeproj/xcuserdata/
+
