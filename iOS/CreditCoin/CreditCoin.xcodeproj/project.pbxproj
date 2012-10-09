@@ -7,6 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8908B6AA15CC7FDC00E704BF /* Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 8908B6A915CC7FDC00E704BF /* Invite.m */; };
+		89107FE315C075B200115106 /* Receipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 89107FE015C075B200115106 /* Receipt.m */; };
+		89107FE415C075B200115106 /* SSCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 89107FE215C075B200115106 /* SSCrypto.m */; };
+		89107FE615C09FA100115106 /* wallet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89107FE515C09FA100115106 /* wallet.plist */; };
+		8936D9BD15BFC02F0085DF7C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8936D9BB15BFC02F0085DF7C /* libcrypto.a */; };
+		8936D9BE15BFC02F0085DF7C /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8936D9BC15BFC02F0085DF7C /* libssl.a */; };
+		893CE57F161E8DBF00651509 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893CE57E161E8DBF00651509 /* Social.framework */; };
+		894F168715C23D5E0042CEBF /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F168615C23D5E0042CEBF /* InfoViewController.m */; };
+		894F168B15C24AB40042CEBF /* CoinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894F168A15C24AB40042CEBF /* CoinsViewController.m */; };
+		8966E52915C336490035F64C /* ReceiptsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E52815C336490035F64C /* ReceiptsViewController.m */; };
+		8966E52D15C33BD50035F64C /* CoinDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E52C15C33BD50035F64C /* CoinDetailViewController.m */; };
+		8966E53415C348A10035F64C /* ReceiptDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E53315C348A00035F64C /* ReceiptDetailViewController.m */; };
+		8966E53715C49FE40035F64C /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E53615C49FE40035F64C /* ContactsViewController.m */; };
+		8966E53A15C4A0060035F64C /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E53915C4A0060035F64C /* ContactDetailViewController.m */; };
+		8966E53D15C4A1EC0035F64C /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E53C15C4A1EC0035F64C /* Contact.m */; };
+		8966E54015C4CA270035F64C /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E53F15C4CA260035F64C /* FriendsViewController.m */; };
+		8966E54215C4CB6C0035F64C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8966E54115C4CB6C0035F64C /* GameKit.framework */; };
+		8966E54515C5871F0035F64C /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E54415C5871F0035F64C /* Transaction.m */; };
+		8966E54B15C59F520035F64C /* TransactionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E54A15C59F520035F64C /* TransactionDetailViewController.m */; };
+		8966E54E15C5AACC0035F64C /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8966E54D15C5AACB0035F64C /* TransactionsViewController.m */; };
+		89A4E88415D22D710021AB6E /* CreditcoinClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A4E88315D22D700021AB6E /* CreditcoinClient.m */; };
+		89A4E88715D322460021AB6E /* InvitesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A4E88615D322460021AB6E /* InvitesViewController.m */; };
+		89A4E88A15D325FD0021AB6E /* InviteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A4E88915D325FD0021AB6E /* InviteDetailViewController.m */; };
 		89B6602E15B9C5880091BD3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B6602D15B9C5880091BD3B /* UIKit.framework */; };
 		89B6603015B9C5880091BD3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B6602F15B9C5880091BD3B /* Foundation.framework */; };
 		89B6603215B9C5880091BD3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B6603115B9C5880091BD3B /* CoreGraphics.framework */; };
@@ -16,13 +39,59 @@
 		89B6604115B9C5880091BD3B /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B6603F15B9C5880091BD3B /* MainStoryboard_iPhone.storyboard */; };
 		89B6604415B9C5880091BD3B /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B6604215B9C5880091BD3B /* MainStoryboard_iPad.storyboard */; };
 		89B6604715B9C5880091BD3B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B6604615B9C5880091BD3B /* ViewController.m */; };
-		89B6604E15B9CB430091BD3B /* SSCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B6604D15B9CB430091BD3B /* SSCrypto.framework */; };
 		89B6605115B9D0000091BD3B /* Mint.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B6605015B9D0000091BD3B /* Mint.m */; };
 		89B6605415B9D0190091BD3B /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B6605315B9D0190091BD3B /* Coin.m */; };
 		89B6605715B9D0270091BD3B /* Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B6605615B9D0270091BD3B /* Wallet.m */; };
+		89EFDC58161E8EE70068B539 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EFDC57161E8EE70068B539 /* FacebookSDK.framework */; };
+		89EFDC5B161E8EFD0068B539 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89EFDC5A161E8EFD0068B539 /* FacebookSDKResources.bundle */; };
+		89EFDC5D161E8F150068B539 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EFDC5C161E8F150068B539 /* AdSupport.framework */; };
+		89EFDC5F161E8F1A0068B539 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EFDC5E161E8F1A0068B539 /* Accounts.framework */; };
+		89F2E9D7161FE69B00289F9F /* noun_project_4509.svg in Resources */ = {isa = PBXBuildFile; fileRef = 89F2E9D6161FE69B00289F9F /* noun_project_4509.svg */; };
+		89F2E9DA161FEDFC00289F9F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F2E9D9161FEDFC00289F9F /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8908B6A815CC7FDC00E704BF /* Invite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invite.h; sourceTree = "<group>"; };
+		8908B6A915CC7FDC00E704BF /* Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invite.m; sourceTree = "<group>"; };
+		89107FDF15C075B200115106 /* Receipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Receipt.h; sourceTree = "<group>"; };
+		89107FE015C075B200115106 /* Receipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Receipt.m; sourceTree = "<group>"; };
+		89107FE115C075B200115106 /* SSCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCrypto.h; sourceTree = "<group>"; };
+		89107FE215C075B200115106 /* SSCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCrypto.m; sourceTree = "<group>"; };
+		89107FE515C09FA100115106 /* wallet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wallet.plist; sourceTree = "<group>"; };
+		8936D9BB15BFC02F0085DF7C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../../../../ios-openssl/lib/libcrypto.a"; sourceTree = "<group>"; };
+		8936D9BC15BFC02F0085DF7C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../../../../ios-openssl/lib/libssl.a"; sourceTree = "<group>"; };
+		893CE57E161E8DBF00651509 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		894F168515C23D5E0042CEBF /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		894F168615C23D5E0042CEBF /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		894F168915C24AB40042CEBF /* CoinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsViewController.h; sourceTree = "<group>"; };
+		894F168A15C24AB40042CEBF /* CoinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsViewController.m; sourceTree = "<group>"; };
+		8966E52715C336490035F64C /* ReceiptsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptsViewController.h; sourceTree = "<group>"; };
+		8966E52815C336490035F64C /* ReceiptsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptsViewController.m; sourceTree = "<group>"; };
+		8966E52B15C33BD50035F64C /* CoinDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinDetailViewController.h; sourceTree = "<group>"; };
+		8966E52C15C33BD50035F64C /* CoinDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinDetailViewController.m; sourceTree = "<group>"; };
+		8966E53215C348A00035F64C /* ReceiptDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptDetailViewController.h; sourceTree = "<group>"; };
+		8966E53315C348A00035F64C /* ReceiptDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptDetailViewController.m; sourceTree = "<group>"; };
+		8966E53515C49FE40035F64C /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		8966E53615C49FE40035F64C /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		8966E53815C4A0060035F64C /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
+		8966E53915C4A0060035F64C /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
+		8966E53B15C4A1EB0035F64C /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		8966E53C15C4A1EC0035F64C /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		8966E53E15C4CA250035F64C /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
+		8966E53F15C4CA260035F64C /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
+		8966E54115C4CB6C0035F64C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		8966E54315C5871E0035F64C /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		8966E54415C5871F0035F64C /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
+		8966E54915C59F520035F64C /* TransactionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionDetailViewController.h; sourceTree = "<group>"; };
+		8966E54A15C59F520035F64C /* TransactionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDetailViewController.m; sourceTree = "<group>"; };
+		8966E54C15C5AACA0035F64C /* TransactionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsViewController.h; sourceTree = "<group>"; };
+		8966E54D15C5AACB0035F64C /* TransactionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsViewController.m; sourceTree = "<group>"; };
+		89A4E88215D22D700021AB6E /* CreditcoinClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditcoinClient.h; path = ../../../../freefalldb/CreditCoin/gen/client/ios/src/CreditcoinClient.h; sourceTree = "<group>"; };
+		89A4E88315D22D700021AB6E /* CreditcoinClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreditcoinClient.m; path = ../../../../freefalldb/CreditCoin/gen/client/ios/src/CreditcoinClient.m; sourceTree = "<group>"; };
+		89A4E88515D322450021AB6E /* InvitesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvitesViewController.h; sourceTree = "<group>"; };
+		89A4E88615D322460021AB6E /* InvitesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvitesViewController.m; sourceTree = "<group>"; };
+		89A4E88815D325FD0021AB6E /* InviteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteDetailViewController.h; sourceTree = "<group>"; };
+		89A4E88915D325FD0021AB6E /* InviteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteDetailViewController.m; sourceTree = "<group>"; };
 		89B6602915B9C5880091BD3B /* CreditCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreditCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B6602D15B9C5880091BD3B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		89B6602F15B9C5880091BD3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,6 +113,12 @@
 		89B6605315B9D0190091BD3B /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		89B6605515B9D0270091BD3B /* Wallet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wallet.h; sourceTree = "<group>"; };
 		89B6605615B9D0270091BD3B /* Wallet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wallet.m; sourceTree = "<group>"; };
+		89EFDC57161E8EE70068B539 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		89EFDC5A161E8EFD0068B539 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		89EFDC5C161E8F150068B539 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		89EFDC5E161E8F1A0068B539 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		89F2E9D6161FE69B00289F9F /* noun_project_4509.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = noun_project_4509.svg; sourceTree = "<group>"; };
+		89F2E9D9161FEDFC00289F9F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,19 +126,101 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89B6604E15B9CB430091BD3B /* SSCrypto.framework in Frameworks */,
+				89F2E9DA161FEDFC00289F9F /* Twitter.framework in Frameworks */,
+				89EFDC5F161E8F1A0068B539 /* Accounts.framework in Frameworks */,
+				89EFDC5D161E8F150068B539 /* AdSupport.framework in Frameworks */,
+				893CE57F161E8DBF00651509 /* Social.framework in Frameworks */,
+				8966E54215C4CB6C0035F64C /* GameKit.framework in Frameworks */,
+				8936D9BD15BFC02F0085DF7C /* libcrypto.a in Frameworks */,
+				8936D9BE15BFC02F0085DF7C /* libssl.a in Frameworks */,
 				89B6602E15B9C5880091BD3B /* UIKit.framework in Frameworks */,
 				89B6603015B9C5880091BD3B /* Foundation.framework in Frameworks */,
 				89B6603215B9C5880091BD3B /* CoreGraphics.framework in Frameworks */,
+				89EFDC58161E8EE70068B539 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8966E54615C5872C0035F64C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8908B6A815CC7FDC00E704BF /* Invite.h */,
+				8908B6A915CC7FDC00E704BF /* Invite.m */,
+				8966E54315C5871E0035F64C /* Transaction.h */,
+				8966E54415C5871F0035F64C /* Transaction.m */,
+				8966E53B15C4A1EB0035F64C /* Contact.h */,
+				8966E53C15C4A1EC0035F64C /* Contact.m */,
+				89107FDF15C075B200115106 /* Receipt.h */,
+				89107FE015C075B200115106 /* Receipt.m */,
+				89B6604F15B9D0000091BD3B /* Mint.h */,
+				89B6605015B9D0000091BD3B /* Mint.m */,
+				89B6605215B9D0190091BD3B /* Coin.h */,
+				89B6605315B9D0190091BD3B /* Coin.m */,
+				89B6605515B9D0270091BD3B /* Wallet.h */,
+				89B6605615B9D0270091BD3B /* Wallet.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		8966E54715C5873D0035F64C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89B6603F15B9C5880091BD3B /* MainStoryboard_iPhone.storyboard */,
+				89A4E88515D322450021AB6E /* InvitesViewController.h */,
+				89A4E88615D322460021AB6E /* InvitesViewController.m */,
+				89A4E88815D325FD0021AB6E /* InviteDetailViewController.h */,
+				89A4E88915D325FD0021AB6E /* InviteDetailViewController.m */,
+				8966E54C15C5AACA0035F64C /* TransactionsViewController.h */,
+				8966E54D15C5AACB0035F64C /* TransactionsViewController.m */,
+				8966E54915C59F520035F64C /* TransactionDetailViewController.h */,
+				8966E54A15C59F520035F64C /* TransactionDetailViewController.m */,
+				8966E53E15C4CA250035F64C /* FriendsViewController.h */,
+				8966E53F15C4CA260035F64C /* FriendsViewController.m */,
+				8966E53515C49FE40035F64C /* ContactsViewController.h */,
+				8966E53615C49FE40035F64C /* ContactsViewController.m */,
+				8966E53815C4A0060035F64C /* ContactDetailViewController.h */,
+				8966E53915C4A0060035F64C /* ContactDetailViewController.m */,
+				894F168915C24AB40042CEBF /* CoinsViewController.h */,
+				894F168A15C24AB40042CEBF /* CoinsViewController.m */,
+				8966E52B15C33BD50035F64C /* CoinDetailViewController.h */,
+				8966E52C15C33BD50035F64C /* CoinDetailViewController.m */,
+				8966E52715C336490035F64C /* ReceiptsViewController.h */,
+				8966E52815C336490035F64C /* ReceiptsViewController.m */,
+				8966E53215C348A00035F64C /* ReceiptDetailViewController.h */,
+				8966E53315C348A00035F64C /* ReceiptDetailViewController.m */,
+				894F168515C23D5E0042CEBF /* InfoViewController.h */,
+				894F168615C23D5E0042CEBF /* InfoViewController.m */,
+				89B6604215B9C5880091BD3B /* MainStoryboard_iPad.storyboard */,
+				89B6604515B9C5880091BD3B /* ViewController.h */,
+				89B6604615B9C5880091BD3B /* ViewController.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		8966E54815C587A30035F64C /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				89107FE115C075B200115106 /* SSCrypto.h */,
+				89107FE215C075B200115106 /* SSCrypto.m */,
+			);
+			name = Crypto;
+			sourceTree = "<group>";
+		};
+		89A4E87515D22CD80021AB6E /* Online */ = {
+			isa = PBXGroup;
+			children = (
+				89A4E88215D22D700021AB6E /* CreditcoinClient.h */,
+				89A4E88315D22D700021AB6E /* CreditcoinClient.m */,
+			);
+			name = Online;
+			sourceTree = "<group>";
+		};
 		89B6601E15B9C5870091BD3B = {
 			isa = PBXGroup;
 			children = (
+				89F2E9D9161FEDFC00289F9F /* Twitter.framework */,
 				89B6603315B9C5880091BD3B /* CreditCoin */,
 				89B6602C15B9C5880091BD3B /* Frameworks */,
 				89B6602A15B9C5880091BD3B /* Products */,
@@ -81,7 +238,13 @@
 		89B6602C15B9C5880091BD3B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89EFDC5E161E8F1A0068B539 /* Accounts.framework */,
+				89EFDC5C161E8F150068B539 /* AdSupport.framework */,
+				893CE57E161E8DBF00651509 /* Social.framework */,
+				89EFDC5A161E8EFD0068B539 /* FacebookSDKResources.bundle */,
+				89EFDC57161E8EE70068B539 /* FacebookSDK.framework */,
 				89B6604D15B9CB430091BD3B /* SSCrypto.framework */,
+				8966E54115C4CB6C0035F64C /* GameKit.framework */,
 				89B6602D15B9C5880091BD3B /* UIKit.framework */,
 				89B6602F15B9C5880091BD3B /* Foundation.framework */,
 				89B6603115B9C5880091BD3B /* CoreGraphics.framework */,
@@ -92,18 +255,13 @@
 		89B6603315B9C5880091BD3B /* CreditCoin */ = {
 			isa = PBXGroup;
 			children = (
+				89F2E9D6161FE69B00289F9F /* noun_project_4509.svg */,
 				89B6603C15B9C5880091BD3B /* AppDelegate.h */,
 				89B6603D15B9C5880091BD3B /* AppDelegate.m */,
-				89B6603F15B9C5880091BD3B /* MainStoryboard_iPhone.storyboard */,
-				89B6604215B9C5880091BD3B /* MainStoryboard_iPad.storyboard */,
-				89B6604515B9C5880091BD3B /* ViewController.h */,
-				89B6604615B9C5880091BD3B /* ViewController.m */,
-				89B6604F15B9D0000091BD3B /* Mint.h */,
-				89B6605015B9D0000091BD3B /* Mint.m */,
-				89B6605215B9D0190091BD3B /* Coin.h */,
-				89B6605315B9D0190091BD3B /* Coin.m */,
-				89B6605515B9D0270091BD3B /* Wallet.h */,
-				89B6605615B9D0270091BD3B /* Wallet.m */,
+				89A4E87515D22CD80021AB6E /* Online */,
+				8966E54715C5873D0035F64C /* Views */,
+				8966E54615C5872C0035F64C /* Models */,
+				8966E54815C587A30035F64C /* Crypto */,
 				89B6603415B9C5880091BD3B /* Supporting Files */,
 			);
 			path = CreditCoin;
@@ -112,6 +270,9 @@
 		89B6603415B9C5880091BD3B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8936D9BB15BFC02F0085DF7C /* libcrypto.a */,
+				8936D9BC15BFC02F0085DF7C /* libssl.a */,
+				89107FE515C09FA100115106 /* wallet.plist */,
 				89B6603515B9C5880091BD3B /* CreditCoin-Info.plist */,
 				89B6603615B9C5880091BD3B /* InfoPlist.strings */,
 				89B6603915B9C5880091BD3B /* main.m */,
@@ -173,6 +334,9 @@
 				89B6603815B9C5880091BD3B /* InfoPlist.strings in Resources */,
 				89B6604115B9C5880091BD3B /* MainStoryboard_iPhone.storyboard in Resources */,
 				89B6604415B9C5880091BD3B /* MainStoryboard_iPad.storyboard in Resources */,
+				89107FE615C09FA100115106 /* wallet.plist in Resources */,
+				89EFDC5B161E8EFD0068B539 /* FacebookSDKResources.bundle in Resources */,
+				89F2E9D7161FE69B00289F9F /* noun_project_4509.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +353,24 @@
 				89B6605115B9D0000091BD3B /* Mint.m in Sources */,
 				89B6605415B9D0190091BD3B /* Coin.m in Sources */,
 				89B6605715B9D0270091BD3B /* Wallet.m in Sources */,
+				89107FE315C075B200115106 /* Receipt.m in Sources */,
+				89107FE415C075B200115106 /* SSCrypto.m in Sources */,
+				894F168715C23D5E0042CEBF /* InfoViewController.m in Sources */,
+				894F168B15C24AB40042CEBF /* CoinsViewController.m in Sources */,
+				8966E52915C336490035F64C /* ReceiptsViewController.m in Sources */,
+				8966E52D15C33BD50035F64C /* CoinDetailViewController.m in Sources */,
+				8966E53415C348A10035F64C /* ReceiptDetailViewController.m in Sources */,
+				8966E53715C49FE40035F64C /* ContactsViewController.m in Sources */,
+				8966E53A15C4A0060035F64C /* ContactDetailViewController.m in Sources */,
+				8966E53D15C4A1EC0035F64C /* Contact.m in Sources */,
+				8966E54015C4CA270035F64C /* FriendsViewController.m in Sources */,
+				8966E54515C5871F0035F64C /* Transaction.m in Sources */,
+				8966E54B15C59F520035F64C /* TransactionDetailViewController.m in Sources */,
+				8966E54E15C5AACC0035F64C /* TransactionsViewController.m in Sources */,
+				8908B6AA15CC7FDC00E704BF /* Invite.m in Sources */,
+				89A4E88415D22D710021AB6E /* CreditcoinClient.m in Sources */,
+				89A4E88715D322460021AB6E /* InvitesViewController.m in Sources */,
+				89A4E88A15D325FD0021AB6E /* InviteDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,11 +457,23 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../SSCrypto\"",
+					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreditCoin/CreditCoin-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/../../../ios-openssl/include\"";
 				INFOPLIST_FILE = "CreditCoin/CreditCoin-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../ios-openssl/lib\"",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../ios-openssl/include\"",
+				);
+				"OTHER_LDFLAGS[arch=*]" = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -290,11 +484,23 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../SSCrypto\"",
+					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CreditCoin/CreditCoin-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/../../../ios-openssl/include\"";
 				INFOPLIST_FILE = "CreditCoin/CreditCoin-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../ios-openssl/lib\"",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../ios-openssl/lib\"",
+				);
+				"OTHER_LDFLAGS[arch=*]" = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -318,6 +524,7 @@
 				89B6604C15B9C5880091BD3B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

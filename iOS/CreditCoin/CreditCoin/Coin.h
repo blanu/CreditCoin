@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Foundation/NSCoder.h>
 
-@interface Coin : NSObject
+@interface Coin : NSObject <NSCoding>
 {
 	NSData *seed;
 	NSData *pub;
@@ -17,10 +18,14 @@
 
 + (Coin *)create:(NSData *)privateKey;
 + (Coin *)load:(NSData *)data;
++ (Coin *)loadWithObjects:(NSArray *)objects;
 
 - (Coin *)initWithSeed:(NSData *)seed publicKey:(NSData *)publicKey signature:(NSData *)signature;
 - (Coin *)initWithPrivateKey:(NSData *)privateKey;
 - (NSData *)serializeWithoutSignature;
-- (void)sign;
+- (NSString *)serializeWithSignature;
+- (void)sign:(NSData *)privateKey;
+- (NSData *)getSeed;
+- (NSArray *)objects;
 
 @end

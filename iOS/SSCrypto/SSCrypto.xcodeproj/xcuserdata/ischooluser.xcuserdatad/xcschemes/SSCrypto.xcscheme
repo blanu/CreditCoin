@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DC2EF4F0486A6940098B216"
-               BuildableName = "SSCrypto.framework"
+               BuildableName = "SSCrypto"
                BlueprintName = "SSCrypto"
                ReferencedContainer = "container:SSCrypto.xcodeproj">
             </BuildableReference>
