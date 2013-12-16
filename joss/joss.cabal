@@ -1,0 +1,59 @@
+Name:                joss
+Version:             0.0.1
+Description:         Digital complimentary currency
+Synopsis:            Digital complimentary currency
+Category:            Network
+License:             GPL
+License-file:        LICENSE
+Author:              Brandon Wiley
+Maintainer:          brandon@ischool.utexas.edu
+Build-Type:          Simple
+Cabal-Version:       >=1.8
+
+source-repository head
+  type: git
+  location: git@github.com:blanu/CreditCoin.git
+
+Library
+  Build-Depends:
+    base >= 3 && < 5,
+    Dust >= 2.1,
+    bytestring,
+    entropy,
+    network,
+    cereal,
+    ghc-prim,
+    binary,
+    random,
+    random-extras,
+    random-source,
+    random-fu,
+    containers,
+    directory,
+    split,
+    http-conduit,
+    control-event,
+    time
+
+Executable joss-pricestamper
+  Main-is: CreditCoin/Joss/PriceStamper.hs
+  Build-Depends:
+    base >= 3 && < 5,
+    Dust >= 2.2.1,
+    bytestring,
+    entropy,
+    network,
+    cereal,
+    ghc-prim,
+    binary,
+    random,
+    random-extras,
+    random-source,
+    random-fu,
+    containers,
+    directory,
+    split,
+    http-conduit,
+    control-event,
+    time
+
