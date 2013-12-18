@@ -1,11 +1,22 @@
-import System.IO
-import qualified Data.ByteString as B
 import Data.Serialize
-import System.Environment (getArgs)
-import Network.HTTP.Conduit (simpleHttp)
+import Crypto.Threefish.Random
+
+import Dust.Crypto.ECDSA
+
+import CreditCoin.Joss.Price
 
 main :: IO()
 main = do
-    url = "http://api.bitcoincharts.com/v1/weighted_prices.json"
-    result <- simpleHttp url
-    putStrLn $ show result
+  maybePrice <- fetchPrice
+  case maybePrice of
+    Just price -> putStrLn $ show $ stamp price
+    Nothing    -> putStrLn "Error"
+  
+stamp :: Float -> Signedtext
+stamp price = do
+  let prng = newSkeinGen
+  let (rand, prng') = randomBytes 32 prng
+  let (Keypair pub priv) = createSigningKeypair rand
+  let bytes = encode price
+  let signed = sign bytes pub
+  return signed
